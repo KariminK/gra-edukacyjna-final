@@ -6,6 +6,7 @@ const ctx = canvas.getContext("2d");
 let pressA = false;
 let pressD = false;
 let timeToNewEnemy = 2500;
+let gameover = false;
 let score = 0;
 let lifeCount = 3;
 let enemies = [];
@@ -87,11 +88,17 @@ class Player{
         }else if(pressD && this.x < canvas.width - this.width){
             this.x += this.speed;
         }
-        enemies.forEach(e=>{
+        for (let i = 0; i < enemies.length; i++) {
+            const e = enemies[i];
             if(e.x < this.x + this.width && e.x + e.size > this.x && e.y+e.size > this.y && e.y < this.y + this.width){
-                e.remove();
+                delete enemies[i];
+                if (e.poison) {
+                    lifeCount--;
+                }else{
+                    score++;
+                }
             };
-        })
+        }
     }
     draw(){
         ctx.fillStyle = 'black';
@@ -108,6 +115,9 @@ class life{
         for(let i = 0; i<lifeCount; i++){
             ctx.drawImage(this.img, canvas.width-this.size*(3-i)-10, 5, this.size, this.size);
         }
+        if(lifeCount < 1){
+            gameover = true;
+        }
     }
 }
 
@@ -116,6 +126,13 @@ const drawScore = ()=>{
     ctx.fillText("Wynik: " + score, 20, 50);
     ctx.fillStyle = 'white';
     ctx.fillText("Wynik: " + score, 25, 55);
+}
+const drawGameOver = ()=>{
+    ctx.fillStyle = 'black';
+    ctx.textAlign = 'center'
+    ctx.fillText("Przegrałeś! Twój wynik to: " + score, canvas.width/2, canvas.height/2);
+    ctx.fillStyle = 'white';
+    ctx.fillText("Przegrałeś! Twój wynik to: " + score, canvas.width/2+5, canvas.height/2+5);
 }
 window.addEventListener("keydown", e=>{
     if (e.key == 'a') {
@@ -148,6 +165,10 @@ const animate = ()=>{
     drawScore();
     player1.update();
     player1.draw();
-    requestAnimationFrame(animate);
+    if(!gameover){
+        requestAnimationFrame(animate);
+    }else{
+        drawGameOver();
+    }
 }
 animate()
