@@ -128,6 +128,7 @@ const drawScore = ()=>{
     ctx.fillText("Wynik: " + score, 25, 55);
 }
 const drawGameOver = ()=>{
+    ctx.font = "40px Impact";
     ctx.fillStyle = 'black';
     ctx.textAlign = 'center'
     ctx.fillText("Przegrałeś! Twój wynik to: " + score, canvas.width/2, canvas.height/2);
@@ -148,7 +149,9 @@ window.addEventListener("keyup", e=>{
         pressD = false;
     }
 })
-
+window.addEventListener('mousedown', e=>{
+    player1.x = e.offsetX-player1.width/2;
+})
 const player1 = new Player();
 const life1 = new life();
 
