@@ -149,7 +149,7 @@ window.addEventListener("keyup", e=>{
         pressD = false;
     }
 })
-window.addEventListener('mousedown', e=>{
+window.addEventListener('mousemove', e=>{
     player1.x = e.offsetX-player1.width/2;
 })
 const player1 = new Player();
