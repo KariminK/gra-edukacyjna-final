@@ -76,9 +76,9 @@ class Enemy{
 class Player{
     constructor(){
         this.img = new Image();
-        this.img.src = "";
-        this.width = 200;
-        this.height = 100;
+        this.img.src = "assets/koszyk.png";
+        this.width = 240;
+        this.height = 110;
         this.x = 0;
         this.y = canvas.height-this.height;
         this.speed = 15;
@@ -103,7 +103,7 @@ class Player{
     }
     draw(){
         ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.img,this.x, this.y, this.width, this.height);
     }
 }
 class life{
