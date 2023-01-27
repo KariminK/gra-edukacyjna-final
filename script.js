@@ -63,7 +63,8 @@ class Enemy{
     }
     update(){
         this.y += this.speed;
-        if (this.y > canvas.height) {
+        if (this.y > canvas.height-this.size/3) {
+            console.log('ok');
             this.readyForDelete = true;
         }
     }
@@ -152,6 +153,9 @@ window.addEventListener("keyup", e=>{
 window.addEventListener('mousemove', e=>{
     player1.x = e.offsetX-player1.width/2;
 })
+window.addEventListener('touchmove', e=>{
+    player1.x = e.offsetX-player1.width/2;
+})
 const player1 = new Player();
 const life1 = new life();
 
@@ -162,9 +166,9 @@ setInterval(()=>{
 const animate = ()=>{
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     life1.draw();
+    enemies = enemies.filter(e=>e.readyForDelete == false);
     enemies.forEach(e=>{e.update()});
     enemies.forEach(e=>{e.draw()});
-    enemies = enemies.filter(e=>e.readyForDelete = true);
     drawScore();
     player1.update();
     player1.draw();
