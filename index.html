@@ -4,12 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gra edukacyjna</title>
     <link rel="stylesheet" href="style.css">
+    <title>Path Of Mushrooms</title>
 </head>
 <body>
-    <canvas id="canvas1"></canvas>
-
+    <header>
+        <h1 id="title">Path of Mushrooms</h1>
+    </header>
+    <main>
+        <div class="req hidden">
+            <ol>
+                <li>Graj na przeglądarce opartej na chromium</li>
+                <li>Graj na ekranie o rozdzielczości 1920x1080px</li>
+                <li>Graj na pełnym ekranie</li>
+            </ol>
+            <button class="menubtn" id="switchfscrn">Ustaw pełny ekran</button>
+        </div>
+        <div class="menubtns">
+            <ul>
+                <li>
+                    <button class="menubtn" id="reqbtn">Jak Grać?</button>
+                </li>
+                <li>
+                    <a href="/testowy poziom/index.html">
+                        <button class="menubtn">Zagraj</button>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
