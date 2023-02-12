@@ -9,7 +9,7 @@ ul{
 body{
     background-image: url('las.jpg');
     background-size: cover;
-    overflow: hidden;
+    overflow: auto;
 }
 #title{
     font-family: 'Lobster', cursive;
@@ -25,6 +25,8 @@ body{
     flex-wrap: wrap;
     position: absolute;
     top: 600px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
 }
 .menubtn{
