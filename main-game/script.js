@@ -3,6 +3,8 @@ const canvas = document.querySelector("#canvas1");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight
 const ctx = canvas.getContext("2d");
+let restartbtnimg = new Image();
+restartbtnimg.src = "assets/restartbtn.png"
 let pressA = false;
 let pressD = false;
 let timeToNewEnemy = 2500;
@@ -10,6 +12,7 @@ let gameover = false;
 let score = 0;
 let lifeCount = 3;
 let enemies = [];
+
 ctx.font = "50px Impact";
 
 const enemyImgs = [{
@@ -49,6 +52,12 @@ const enemyImgs = [{
     src: "assets/enemies/strzepiakCeglasty.png",
     poison: true,
 },];
+const restartbtn = {
+    width: 200,
+    height: 100,
+    x: canvas.width/2 - 100,
+    y: 400,
+}
 class Enemy{
     constructor(){
         this.mushroomIndex = Math.floor(Math.random()*enemyImgs.length);
@@ -128,6 +137,16 @@ const drawScore = ()=>{
     ctx.fillStyle = 'white';
     ctx.fillText("Wynik: " + score, 25, 55);
 }
+const mousemoveHandle = e=>{
+    player1.x = e.offsetX-player1.width/2;
+    if(gameover && e.offsetX < restartbtn.x+restartbtn.width && e.offsetX > restartbtn.x && e.offsetY < restartbtn.y + restartbtn.height && e.offsetY > restartbtn.y){
+        console.log('kolizja');
+        canvas.style.cursor = "pointer";
+    }else{
+        canvas.style.cursor = "initial";
+    }
+}
+
 const drawGameOver = ()=>{
     ctx.font = "40px Impact";
     ctx.fillStyle = 'black';
@@ -135,26 +154,29 @@ const drawGameOver = ()=>{
     ctx.fillText("Przegrałeś! Twój wynik to: " + score, canvas.width/2, canvas.height/2);
     ctx.fillStyle = 'white';
     ctx.fillText("Przegrałeś! Twój wynik to: " + score, canvas.width/2+5, canvas.height/2+5);
+    ctx.drawImage(restartbtnimg, 0, 0, 300, 150, restartbtn.x, restartbtn.y, restartbtn.width, restartbtn.height);
 }
-window.addEventListener("keydown", e=>{
+window.addEventListener("keydown", keydownHandle = e=>{
     if (e.key == 'a') {
         pressA = true;
     }else if(e.key == 'd'){
         pressD = true
     }
 })
-window.addEventListener("keyup", e=>{
+window.addEventListener("keyup", keyupHandle = e=>{
     if(e.key == 'a'){
         pressA = false;
     }else if(e.key == 'd'){
         pressD = false;
     }
 })
-window.addEventListener('mousemove', e=>{
-    player1.x = e.offsetX-player1.width/2;
-})
-window.addEventListener('touchmove', e=>{
-    player1.x = e.offsetX-player1.width/2;
+window.addEventListener('mousemove', mousemoveHandle)
+window.addEventListener('touchmove', mousemoveHandle)
+window.addEventListener('click', e=>{
+    if(gameover && e.offsetX < restartbtn.x+restartbtn.width && e.offsetX > restartbtn.x && e.offsetY < restartbtn.y + restartbtn.height && e.offsetX > restartbtn.y){
+        console.log('kolizja');
+        location.reload();
+    }
 })
 const player1 = new Player();
 const life1 = new life();
@@ -172,6 +194,7 @@ const animate = ()=>{
     drawScore();
     player1.update();
     player1.draw();
+    
     if(!gameover){
         requestAnimationFrame(animate);
     }else{

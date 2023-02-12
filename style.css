@@ -14,7 +14,7 @@ body{
 #title{
     font-family: 'Lobster', cursive;
     font-size: 75px;
-    color: lightgreen;
+    color: #90ee90;
     text-align: center;
     text-shadow: 1px 3px 15px rgb(49, 80, 40);
     animation: titleanimation 2s linear 0s infinite alternate;
