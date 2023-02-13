@@ -56,7 +56,7 @@ const restartbtn = {
     width: 200,
     height: 100,
     x: canvas.width/2 - 100,
-    y: 400,
+    y: canvas.height*0.6,
 }
 class Enemy{
     constructor(){
