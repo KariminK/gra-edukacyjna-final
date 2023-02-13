@@ -14,7 +14,9 @@ let lifeCount = 3;
 let enemies = [];
 
 ctx.font = "50px Impact";
-
+const ScoreUp = new Audio("assets/Coin01.mp3");
+const ScoreDown = new Audio("assets/Coin02.mp3");
+const gameOverSound = new Audio("assets/Alarm.mp3");
 const enemyImgs = [{
     src: "assets/enemies/borowikKrolewski.png",
     poison: false,
@@ -101,12 +103,14 @@ class Player{
         for (let i = 0; i < enemies.length; i++) {
             const e = enemies[i];
             if(e.x < this.x + this.width && e.x + e.size > this.x && e.y+e.size > this.y && e.y < this.y + this.width){
-                delete enemies[i];
                 if (e.poison) {
+                    ScoreDown.play();
                     lifeCount--;
                 }else{
+                    ScoreUp.play();
                     score++;
                 }
+                delete enemies[i];
             };
         }
     }
@@ -198,6 +202,7 @@ const animate = ()=>{
     if(!gameover){
         requestAnimationFrame(animate);
     }else{
+        gameOverSound.play();
         drawGameOver();
     }
 }
