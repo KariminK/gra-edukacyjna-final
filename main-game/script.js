@@ -19,7 +19,7 @@ let score = 0;
 let acceleration = 10;
 let maxAcc = 25;
 let minTimeToNewEnemy = 500;
-let lifeCount = 1000;
+let lifeCount = 3;
 let enemies = [];
 
 ctx.font = "50px Impact";
