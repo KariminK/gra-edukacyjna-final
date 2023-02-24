@@ -16,8 +16,10 @@ let pressD = false;
 let timeToNewEnemy = 2500;
 let gameover = false;
 let score = 0;
-let acceleration = 5;
-let lifeCount = 3;
+let acceleration = 10;
+let maxAcc = 25;
+let minTimeToNewEnemy = 500;
+let lifeCount = 1000;
 let enemies = [];
 
 ctx.font = "50px Impact";
@@ -169,6 +171,10 @@ class Player{
                 }
                 delete enemies[i];
             };
+            if(e.x < this.x + this.width && e.x + e.size > this.x && e.y+e.size > this.y && e.y < this.y + this.width){
+                timeToNewEnemy-=25;
+                acceleration+= 0.1;
+            };
         }
     }
     draw(){
@@ -267,9 +273,13 @@ animate()
 const enemiestimer = ()=>{
     setTimeout(() => {
         enemies.push(new Enemy());
-        acceleration+= 0.1;
-        timeToNewEnemy -= 50;
         enemiestimer();
+        if(timeToNewEnemy < minTimeToNewEnemy){
+            timeToNewEnemy = minTimeToNewEnemy;
+        }
+        if(acceleration > maxAcc){
+            acceleration = maxAcc
+        }
     }, timeToNewEnemy);
 }
 enemiestimer();
