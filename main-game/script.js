@@ -7,7 +7,7 @@ const whereToFindTxt = document.querySelector("#whereToFind");
 const poisonTxt = document.querySelector("#poison");
 const infoContainer = document.querySelector(".infobox");
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight
+canvas.height = window.innerHeight;
 const ctx = canvas.getContext("2d");
 let restartbtnimg = new Image();
 restartbtnimg.src = "assets/restartbtn.png"
@@ -242,11 +242,11 @@ window.addEventListener('click', e=>{
 const player1 = new Player();
 const life1 = new life();
 
-setInterval(()=>{
-    enemies.push(new Enemy());
-    acceleration+= 0.5;
-    timeToNewEnemy -= 100;
-}, timeToNewEnemy);
+// <setInterval(()=>{
+//     enemies.push(new Enemy());
+//     acceleration+= 0.5;
+//     timeToNewEnemy -= 100;
+// }, timeToNewEnemy);>
 const animate = ()=>{
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     life1.draw();
@@ -256,7 +256,6 @@ const animate = ()=>{
     drawScore();
     player1.update();
     player1.draw();
-    
     if(!gameover){
         requestAnimationFrame(animate);
     }else{
@@ -265,3 +264,12 @@ const animate = ()=>{
     }
 }
 animate()
+const enemiestimer = ()=>{
+    setTimeout(() => {
+        enemies.push(new Enemy());
+        acceleration+= 0.1;
+        timeToNewEnemy -= 50;
+        enemiestimer();
+    }, timeToNewEnemy);
+}
+enemiestimer();
